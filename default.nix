@@ -29,12 +29,6 @@ in
           )
         );
 
-        # https://github.com/commercialhaskell/lts-haskell/issues/149
-        stack = doJailbreak super.stack;
-
-        # needed until we upgrade to 18.09
-        yaml = disableCabalFlag super.yaml "system-libyaml";
-
         # https://github.com/NixOS/cabal2nix/issues/146
         hinotify = if pkgs.stdenv.isDarwin then self.hfsevents else super.hinotify;
       } // optionalAttrs (!profiling) {
