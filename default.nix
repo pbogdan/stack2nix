@@ -2,6 +2,9 @@
 , profiling ? false
 }:
 let
+  inherit (pkgs)
+    nix-gitignore
+  ;
   inherit (pkgs.lib)
     optionalAttrs
     ;
@@ -21,15 +24,7 @@ in
         stack2nix = justStaticExecutables (
           overrideCabal super.stack2nix (
             old: {
-              src = builtins.path {
-                name = "stack2nix";
-                path = ./.;
-                # Filter hidden dirs (.), e.g. .git and .stack-work
-                # TODO Remove once https://github.com/input-output-hk/stack2nix/issues/119 is done
-                filter = path: type:
-                  !(pkgs.lib.hasPrefix "." (baseNameOf path))
-                  && baseNameOf path != "stack.yaml";
-              };
+              src = nix-gitignore.gitignoreSource [] ./.;
             }
           )
         );
