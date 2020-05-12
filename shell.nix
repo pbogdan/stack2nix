@@ -4,6 +4,6 @@ pkgs.haskellPackages.shellFor {
   packages = _: [
     (import ./default.nix {})
   ];
-  
+
   withHoogle = true;
 }
