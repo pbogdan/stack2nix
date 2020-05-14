@@ -9,3 +9,4 @@ result
 /cabal.project.*
 /.envrc
 
+/hie.yaml
